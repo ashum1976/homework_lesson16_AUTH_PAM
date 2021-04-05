@@ -29,21 +29,22 @@ ___
 
 <summary>Скрипт проверки пользователя</summary>
 
-#!/usr/bin/env bash
+      #!/usr/bin/env bash
 
-echo $PAM_USER >> /root/test
-if [[ $(grep $PAM_USER /etc/group | grep 'admin') ]]
-    then
-        if [[ $(date +%u) -ge 5 ]]
-            then
-                exit 1
-            else
-                exit 0
-        fi
-    else
-        exit 0
+      echo $PAM_USER >> /root/test
+      if [[ $(grep $PAM_USER /etc/group | grep 'admin') ]]
+          then
+              if [[ $(date +%u) -ge 5 ]]
+                  then
+                      exit 1
+                  else
+                      exit 0
+              fi
+          else
+              exit 0
 
-fi
+      fi
+
 </details>
 
 
