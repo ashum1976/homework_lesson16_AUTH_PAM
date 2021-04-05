@@ -48,8 +48,6 @@ ___
 </details>
 
 
-Имя файла - /etc/pam-script.d/pam_script_auth (модуль используем auth)
-auth       required     pam_script.so - строчка в sshd
 
 #                      Общая теория, примеры, полезности.
 
