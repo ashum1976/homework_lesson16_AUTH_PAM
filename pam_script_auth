@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+# Скрипт, запускаемый модулем pam_script.so, для проверки принадлежности подключающегося пользователя группе #"admin", и если правда и выходной день (5 или 6 день недели) то  выход из скрипта. Т.е прерываем работу и #пользователь не проходит authentication
+      echo $PAM_USER >> /root/test
+      if [[ $(grep $PAM_USER /etc/group | grep 'admin') ]]
+          then
+              if [[ $(date +%u) -ge 5 ]]
+                  then
+                      exit 1
+                  else
+                      exit 0
+              fi
+          else
+              exit 0
+
+fi
