@@ -32,7 +32,7 @@ ___
       #!/usr/bin/env bash
 
       echo $PAM_USER >> /root/test
-      if [[ $(grep $PAM_USER /etc/group | grep 'admin') ]]
+      if [[ ! $(grep $PAM_USER /etc/group | grep 'admin') ]]
           then
               if [[ $(date +%u) -ge 5 ]]
                   then

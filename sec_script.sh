@@ -5,6 +5,9 @@ if [[ ! $(cat /etc/group | grep admin) ]]
   then
       groupadd  admin
 fi
+# Для возможности проверки включаем возможность парольной идентификации, и отключаем возможность входа по ключу
+sed -i.bak 's/#PasswordAuthentication no/PasswordAuthentication yes/; s/#PubkeyAuthentication yes/PubkeyAuthentication no/' /etc/ssh/sshd_config
+systemctl restart sshd
 #Создаём пользователя tester, с основной группой "tester", и дополнительной группой "admin". Пароль пользователя обычный знаменитый "qwerty" ;)
 if [[ ! $(cat /etc/passwd | grep tester) ]]
   then
@@ -34,12 +37,12 @@ if [[ ! -e /etc/pam-script.d/pam_script_auth ]]
   fi
 chmod 755 /etc/pam-script.d/pam_script_auth
 
-#Вставляем текст перед второй строкой в файле sshd, которая подключает ограничение возможности логина пользователя из группы "admin" в выходные, посредством запуска скрипта в момент логина пользователя через ssh
+#Вставляем текст перед второй строкой в файле sshd, которая подключает ограничение возможности логина пользователя не из группы "admin" в выходные, посредством запуска скрипта в момент логина пользователя через ssh
 if [[ ! $(grep 'pam_script' /etc/pam.d/sshd) ]]
   then
       sed -i '2i auth       required     pam_script.so' /etc/pam.d/sshd
 fi
 echo ""
 echo ""
-echo -e "\e[31m      Запрещён вход пользователя tester по ssh в выходные дни    \e[0m"
+echo -e "\e[31m      Запрещён вход пользователям не в группе "admin" по ssh в выходные дни    \e[0m"
 echo ""
