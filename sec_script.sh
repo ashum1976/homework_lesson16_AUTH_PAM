@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 yum install -y --nogpgcheck epel-release && yum install -y --nogpgcheck pam_script docker-latest > /dev/null
+timedatectl set-timezone Europe/Minsk
 #Создаём группу admin
 if [[ ! $(cat /etc/group | grep  ^admin) ]]
   then
