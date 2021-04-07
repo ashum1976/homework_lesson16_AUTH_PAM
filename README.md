@@ -25,33 +25,13 @@ ___
 
       auth       required     pam_script.so
 
-<details>
-
-<summary>Скрипт проверки пользователя</summary>
-
-      #!/usr/bin/env bash
-
-      echo $PAM_USER >> /root/test
-      if [[ ! $(grep $PAM_USER /etc/group | grep 'admin') ]]
-          then
-              if [[ $(date +%u) -ge 5 ]]
-                  then
-                      exit 1
-                  else
-                      exit 0
-              fi
-          else
-              exit 0
-
-      fi
-
-</details>
 
 **Для запуска тестового стенда, в корневом каталоге с Vagrant файлом должны лежать два файла:**
 
 - pam_script_auth - Скрипт проверки пользователя на стенде, копируется в каталог /etc/pam-script.d/
-- sec_script.sh - выполняемый скрипт при запуске vagrant-стенда, "prod.vm.provision" в Vagrantfile
+- sec_script.sh - Основной выполняемый скрипт при запуске vagrant-стенда, "prod.vm.provision" в Vagrantfile
 
+При запуске стенда, будет установлена дата 10 апреля 2021 (суббота), доступ на сервер разрешён пользоваетлю tester, т.к он находится в группе admin. Для возврата доступа vagrant пользователю, перегрузить стендовую машину.
 
 
 
